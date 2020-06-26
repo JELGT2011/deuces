@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import time
 from SevenEval import SevenEval
 from FiveEval import FiveEval
@@ -10,7 +12,7 @@ def setup(n, m):
     
     for i in range(n):
 
-        deck = range(52)
+        deck = list(range(52))
         random.shuffle(deck)
         hand = []
         board = []
@@ -35,9 +37,9 @@ for i in range(len(boards)):
     cumtime += (time.time() - start)
 
 avg = float(cumtime / N)
-print "7 card evaluation:"
-print "[*] SpecialK: Average time per evaluation: %f" % avg
-print "[*] SpecialK: Evaluations per second = %f" % (1.0 / avg)
+print("7 card evaluation:")
+print("[*] SpecialK: Average time per evaluation: %f" % avg)
+print("[*] SpecialK: Evaluations per second = %f" % (1.0 / avg))
 
 ####
 
@@ -51,6 +53,6 @@ for i in range(len(boards)):
     cumtime += (time.time() - start)
 
 avg = float(cumtime / N)
-print "5 card evaluation:"
-print "[*] SpecialK: Average time per evaluation: %f" % avg
-print "[*] SpecialK: Evaluations per second = %f" % (1.0 / avg)
+print("5 card evaluation:")
+print("[*] SpecialK: Average time per evaluation: %f" % avg)
+print("[*] SpecialK: Evaluations per second = %f" % (1.0 / avg))

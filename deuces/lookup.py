@@ -1,5 +1,14 @@
+from __future__ import absolute_import, division
+
 import itertools
-from card import Card
+from .card import Card
+
+
+try:
+    xrange
+except NameError:
+    xrange = range
+
 
 class LookupTable(object):
     """
@@ -166,7 +175,7 @@ class LookupTable(object):
         """
         Pair, Two Pair, Three of a Kind, Full House, and 4 of a Kind.
         """
-        backwards_ranks = range(len(Card.INT_RANKS) - 1, -1, -1)
+        backwards_ranks = list(range(len(Card.INT_RANKS) - 1, -1, -1))
 
         # 1) Four of a Kind
         rank = LookupTable.MAX_STRAIGHT_FLUSH + 1
@@ -252,7 +261,7 @@ class LookupTable(object):
         Writes lookup table to disk
         """
         with open(filepath, 'w') as f:
-            for prime_prod, rank in table.iteritems():
+            for prime_prod, rank in table.items():
                 f.write(str(prime_prod) +","+ str(rank) + '\n')
 
     def get_lexographically_next_bit_sequence(self, bits):
@@ -264,9 +273,9 @@ class LookupTable(object):
         so no need to sort when done! Perfect.
         """
         t = (bits | (bits - 1)) + 1 
-        next = t | ((((t & -t) / (bits & -bits)) >> 1) - 1)  
+        next = t | ((((t & -t) // (bits & -bits)) >> 1) - 1)  
         yield next
         while True:
             t = (next | (next - 1)) + 1 
-            next = t | ((((t & -t) / (next & -next)) >> 1) - 1)
+            next = t | ((((t & -t) // (next & -next)) >> 1) - 1)
             yield next
